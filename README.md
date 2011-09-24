@@ -6,6 +6,7 @@ Gems included
 
 * Devise
 * Formtastic
+* 
 * RSpec
 * Cucumber
 * Steak
