@@ -1,14 +1,15 @@
-Rails 3 Edge Template
+Rails Edge Template
 ============================
 
 Gems included
 -----------------------------
 
-Devise
-Formtastic
-RSpec
-Cucumber
-Steak
+* Devise
+* Formtastic
+* RSpec
+* Cucumber
+* Steak
+
                                                                                                          
 Using The Template
 -----------------------------
@@ -16,8 +17,13 @@ Using The Template
 Run this: 
 
     rails new appname -m https://github.com/bridgeutopia/rails-edge-template/blob/master/template.rb
-                  
-                                     
+
+TO DO
+-----------------------------
+
+* RSpec, cucumber and steak installation
+
+                                  
 
 
     
