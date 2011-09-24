@@ -22,7 +22,9 @@ Run this:
 TO DO
 -----------------------------
 
-* RSpec, cucumber and steak installation
+* Not sure. Choose a CSS framework? 
+* Make PostgreSQL optional
+* Backbone.js ?
 
                                   
 
