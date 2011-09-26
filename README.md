@@ -6,10 +6,9 @@ Gems included
 
 * Devise
 * Formtastic
-* 
 * RSpec
 * Cucumber
-* Steak
+* Friendly ID 
 
                                                                                                          
 Using The Template
