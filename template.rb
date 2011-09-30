@@ -6,7 +6,14 @@ get 'https://raw.github.com/bridgeutopia/sleep/master/Gemfile', 'Gemfile'
 
 
 if yes?("Would you like to proceed and create a database config file?")
-  get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.yml', 'config/database.yml'
+  
+  if yes?("Would you like to use MySQL instead of PostgreSQL?")
+    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.mysql.yml', 'config/database.yml'
+    gsub_file 'Gemfile', /pg/, "mysql2"
+  else
+    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.yml', 'config/database.yml'
+  end
+  
 
   database_name = ask("What's the name of the prefix name for the database?")
   database_name = "sleep" if database_name.blank?

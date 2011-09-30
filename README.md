@@ -22,9 +22,6 @@ TO DO
 -----------------------------
 
 * Not sure. Choose a CSS framework? 
-* Make PostgreSQL optional
-* Backbone.js ?
-
                                   
 
 
