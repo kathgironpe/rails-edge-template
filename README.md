@@ -4,11 +4,12 @@ Rails Edge Template
 Gems included
 -----------------------------
 
-* Devise
+* Devise (for authentication) 
 * Formtastic
 * RSpec
 * Cucumber
-* Friendly ID 
+* Friendly ID
+* Kaminari (for pagination) 
 * Guard and Spork 
                                                                                                          
 Using The Template
