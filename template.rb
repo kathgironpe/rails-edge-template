@@ -57,7 +57,9 @@ insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.
 insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/model/validators) '"\n"'', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/lib) '"\n"'', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.template_engine :haml '"\n"' g.fixture_replacement :factory_girl, :dir => "spec/factories"  '"\n"'  g.test_framework :rspec, '"\n"' :fixture => false '"\n"' end '"\n"'', :after => "class Application < Rails::Application\n"
-   	
+  
+get 'https://raw.github.com/bridgeutopia/sleep/master/.gitignore', '.gitignore'
+
 if yes?("Would you like to install RSpec, Email Spec, Spork and Cucumber?")
   generate("rspec:install")
   generate("cucumber:install")
@@ -77,3 +79,4 @@ if yes?("Would you like to install Devise?")
   model_name = "user" if model_name.blank?
   generate("devise", model_name)
 end
+
