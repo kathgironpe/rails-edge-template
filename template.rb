@@ -83,6 +83,5 @@ end
 if yes?("Would you like to use Twitter Bootstrap?")
   remove_file  "app/views/layouts/application.html.erb"
   get 'https://raw.github.com/bridgeutopia/sleep/master/app/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
-  get 'https://raw.github.com/bridgeutopia/sleep/master/app/assets/stylesheets/bootstrap.css', 'app/assets/stylesheets/bootstrap.css'
   get 'https://raw.github.com/bridgeutopia/sleep/master/app/assets/stylesheets/application.scss', 'app/assets/stylesheets/application.scss'
 end
