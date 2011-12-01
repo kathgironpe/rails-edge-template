@@ -18,6 +18,10 @@ if yes?("Would you like to proceed and create a database config file?")
   database_name = ask("What's the name of the prefix name for the database?")
   database_name = "sleep" if database_name.blank?
   gsub_file 'config/database.yml', /sleep/, "#{database_name}"
+
+  database_username = ask("What's your username")
+  database_username = "" if database_username.blank?
+  gsub_file 'config/database.yml', /katz/, "#{database_username}"
   
   say <<-eos
     ============================================================================
