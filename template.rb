@@ -55,11 +55,8 @@ inside('app') do
   run('mkdir -p model/validators')
 end
 
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers) '"\n"' ', :after => "class Application < Rails::Application\n"
+insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers, #{config.root}/app/jobs, #{config.root}/app/model/validators, #{config.root}/lib) '"\n"' ', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.autoload_paths += Dir["#{config.root}/lib/**/"] '"\n"' ', :after => "class Application < Rails::Application\n"
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/jobs) '"\n"'', :after => "class Application < Rails::Application\n"
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/model/validators) '"\n"'', :after => "class Application < Rails::Application\n"
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/lib) '"\n"'', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.template_engine :haml '"\n"' g.fixture_replacement :factory_girl, :dir => "spec/factories"  '"\n"'  g.test_framework :rspec, '"\n"' :fixture => false '"\n"' end '"\n"'', :after => "class Application < Rails::Application\n"
   
 get 'https://raw.github.com/bridgeutopia/sleep/master/.gitignore', '.gitignore'

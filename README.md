@@ -12,6 +12,7 @@ Gems included
 * Kaminari (for pagination) 
 * Twitter Bootstrap 
 * Guard and Spork 
+
                                                                                                          
 Using The Template
 -----------------------------
