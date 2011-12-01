@@ -11,7 +11,7 @@ if yes?("Would you like to proceed and create a database config file?")
     get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.mysql.yml', 'config/database.yml'
     gsub_file 'Gemfile', /pg/, "mysql2"
   else
-    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.yml', 'config/database.yml'
+    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.postgresql.yml', 'config/database.yml'
   end
   
 
@@ -19,7 +19,7 @@ if yes?("Would you like to proceed and create a database config file?")
   database_name = "sleep" if database_name.blank?
   gsub_file 'config/database.yml', /sleep/, "#{database_name}"
 
-  database_username = ask("What's your username")
+  database_username = ask("What's your username for your database?")
   database_username = "" if database_username.blank?
   gsub_file 'config/database.yml', /katz/, "#{database_username}"
   
