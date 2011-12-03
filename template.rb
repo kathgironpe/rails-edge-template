@@ -15,7 +15,7 @@ if yes?("Would you like to proceed and create a database config file?")
   end
   
 
-  database_name = ask("What's the name of the prefix name for the database?")
+  database_name = ask("What's the prefix name for the database?")
   database_name = "sleep" if database_name.blank?
   gsub_file 'config/database.yml', /sleep/, "#{database_name}"
 
@@ -45,17 +45,17 @@ say <<-eos
   Updating application.rb
   Creating app/sweepers directory.
   Creating app/jobs directory.
-  Creating app/model/validators directory.
+  Creating app/models/validators directory.
   Best practice: validators and cache sweepers should be within in its own directory. 
 eos
 
 inside('app') do
   run('mkdir sweepers')
   run('mkdir jobs')
-  run('mkdir -p model/validators')
+  run('mkdir -p models/validators')
 end
 
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers, #{config.root}/app/jobs, #{config.root}/app/model/validators, #{config.root}/lib) '"\n"' ', :after => "class Application < Rails::Application\n"
+insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers, #{config.root}/app/jobs, #{config.root}/app/models/validators, #{config.root}/lib) '"\n"' ', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.autoload_paths += Dir["#{config.root}/lib/**/"] '"\n"' ', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.template_engine :haml '"\n"' g.fixture_replacement :factory_girl, :dir => "spec/factories"  '"\n"'  g.test_framework :rspec, '"\n"' :fixture => false '"\n"' end '"\n"'', :after => "class Application < Rails::Application\n"
   
