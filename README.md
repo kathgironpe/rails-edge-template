@@ -11,7 +11,6 @@ Gems included
 * Friendly ID
 * Kaminari (for pagination) 
 * Twitter Bootstrap 
-* Guard and Spork 
 
                                                                                                          
 Using The Template
