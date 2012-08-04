@@ -59,6 +59,7 @@ insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.tem
 get 'https://raw.github.com/bridgeutopia/sleep/master/.gitignore', '.gitignore'
 
 if yes?("Would you like to install RSpec, Email Spec, Spork and Cucumber?")
+  run 'rake db:create:all'
   generate("rspec:install")
   generate("cucumber:install")
   insert_into_file "features/support/env.rb", 'require "email_spec/cucumber"', :after => "require 'cucumber/rails'\n"
