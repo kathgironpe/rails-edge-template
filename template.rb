@@ -22,7 +22,7 @@ if yes?("Would you like to proceed and create a database config file?")
   gsub_file 'config/database.yml', /katz/, "#{database_username}"
 
   say <<-eos
-    ============================================================================
+  ============================================================================
     Creating config file...
   eos
 
@@ -52,29 +52,23 @@ inside('app') do
   run('mkdir -p models/validators')
 end
 
-insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers, #{config.root}/app/jobs, #{config.root}/app/models/validators, #{config.root}/lib) '"\n"' ', :after => "class Application < Rails::Application\n"
-insert_into_file "config/application.rb", 'config.autoload_paths += Dir["#{config.root}/lib/**/"] '"\n"' ', :after => "class Application < Rails::Application\n"
-insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.template_engine :haml '"\n"' g.fixture_replacement :factory_girl, :dir => "spec/factories"  '"\n"'  g.test_framework :rspec, '"\n"' :fixture => false '"\n"' end '"\n"'', :after => "class Application < Rails::Application\n"
+rails_config = <<-eos
+    #Rails generators
+    config.generators do |g|
+      g.template_engine :haml
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.test_framework :rspec, :fixture => false
+    end
+eos
 
-get 'https://raw.github.com/bridgeutopia/sleep/master/.gitignore', '.gitignore'
+insert_into_file "config/application.rb", rails_config, :after => "class Application < Rails::Application\n"
 
-if yes?("Would you like to install RSpec, Email Spec, Spork and Cucumber?")
-  run 'rake db:create:all'
-  generate("rspec:install")
-  generate("cucumber:install")
-  insert_into_file "features/support/env.rb", 'require "email_spec/cucumber"', :after => "require 'cucumber/rails'\n"
-  generate("email_spec:steps")
-  get 'https://raw.github.com/bridgeutopia/sleep/master/spec/spec_helper.rb', 'spec/spec_helper.rb'
-  get 'https://github.com/bridgeutopia/sleep/blob/master/Guardfile' , 'Guardfile'
-  inside('spec') do
-    run('mkdir factories')
-  end
-end
+get 'https://raw.github.com/bridgeutopia/gitignore/master/Rails.gitignore', '.gitignore'
 
-
-if yes?("Would you like to install Devise?")
-  generate("devise:install")
-  model_name = ask("What would you like the user model to be called? [user]")
-  model_name = "user" if model_name.blank?
-  generate("devise", model_name)
-end
+say <<-eos
+  ============================================================================
+  There's a still lot to do here but it's best to install
+  all of those stuff without a generator.
+  Consider reading about devise, cancan and autotest.
+  https://github.com/svoop/autotest-growl
+eos
