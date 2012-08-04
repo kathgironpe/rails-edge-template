@@ -4,16 +4,14 @@ remove_file     "public/images/rails.png"
 
 get 'https://raw.github.com/bridgeutopia/sleep/master/Gemfile', 'Gemfile'
 
-
 if yes?("Would you like to proceed and create a database config file?")
-  
+
   if yes?("Would you like to use MySQL instead of PostgreSQL?")
     get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.mysql.yml', 'config/database.yml'
     gsub_file 'Gemfile', /pg/, "mysql2"
   else
     get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.postgresql.yml', 'config/database.yml'
   end
-  
 
   database_name = ask("What's the prefix name for the database?")
   database_name = "sleep" if database_name.blank?
@@ -22,7 +20,7 @@ if yes?("Would you like to proceed and create a database config file?")
   database_username = ask("What's your username for your database?")
   database_username = "" if database_username.blank?
   gsub_file 'config/database.yml', /katz/, "#{database_username}"
-  
+
   say <<-eos
     ============================================================================
     Creating config file...
@@ -30,11 +28,10 @@ if yes?("Would you like to proceed and create a database config file?")
 
 end
 
-
 say <<-eos
   ============================================================================
-  Installing dependencies. This will take a while. 
-  Sleep... 
+  Installing dependencies. This will take a while.
+  Sleep...
   zzz...
 eos
 
@@ -46,7 +43,7 @@ say <<-eos
   Creating app/sweepers directory.
   Creating app/jobs directory.
   Creating app/models/validators directory.
-  Best practice: validators and cache sweepers should be within in its own directory. 
+  Best practice: validators and cache sweepers should be within in its own directory.
 eos
 
 inside('app') do
@@ -58,7 +55,7 @@ end
 insert_into_file "config/application.rb", 'config.autoload_paths += %W(#{config.root}/app/sweepers, #{config.root}/app/jobs, #{config.root}/app/models/validators, #{config.root}/lib) '"\n"' ', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.autoload_paths += Dir["#{config.root}/lib/**/"] '"\n"' ', :after => "class Application < Rails::Application\n"
 insert_into_file "config/application.rb", 'config.generators do |g| '"\n"' g.template_engine :haml '"\n"' g.fixture_replacement :factory_girl, :dir => "spec/factories"  '"\n"'  g.test_framework :rspec, '"\n"' :fixture => false '"\n"' end '"\n"'', :after => "class Application < Rails::Application\n"
-  
+
 get 'https://raw.github.com/bridgeutopia/sleep/master/.gitignore', '.gitignore'
 
 if yes?("Would you like to install RSpec, Email Spec, Spork and Cucumber?")
@@ -79,10 +76,4 @@ if yes?("Would you like to install Devise?")
   model_name = ask("What would you like the user model to be called? [user]")
   model_name = "user" if model_name.blank?
   generate("devise", model_name)
-end
-
-if yes?("Would you like to use Twitter Bootstrap?")
-  remove_file  "app/views/layouts/application.html.erb"
-  get 'https://raw.github.com/bridgeutopia/sleep/master/app/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
-  get 'https://raw.github.com/bridgeutopia/sleep/master/app/assets/stylesheets/application.scss', 'app/assets/stylesheets/application.scss'
 end
