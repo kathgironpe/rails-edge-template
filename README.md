@@ -1,5 +1,4 @@
-Rails Edge Template
-============================
+# Rails Edge Template (No longer maintained)
 
 Gems included
 -----------------------------
