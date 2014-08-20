@@ -2,15 +2,15 @@ remove_file     "Gemfile"
 remove_file     "public/index.html"
 remove_file     "public/images/rails.png"
 
-get 'https://raw.github.com/bridgeutopia/sleep/master/Gemfile', 'Gemfile'
+get 'https://raw.github.com/katgironpe/sleep/master/Gemfile', 'Gemfile'
 
-if yes?("Would you like to proceed and create a database config file?")
+if yes?('Would you like to proceed and create a database config file?')
 
-  if yes?("Would you like to use MySQL instead of PostgreSQL?")
-    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.mysql.yml', 'config/database.yml'
+  if yes?('Would you like to use MySQL instead of PostgreSQL?')
+    get 'https://raw.github.com/katgironpe/sleep/master/config/database.mysql.yml', 'config/database.yml'
     gsub_file 'Gemfile', /pg/, "mysql2"
   else
-    get 'https://raw.github.com/bridgeutopia/sleep/master/config/database.postgresql.yml', 'config/database.yml'
+    get 'https://raw.github.com/katgironpe/sleep/master/config/database.postgresql.yml', 'config/database.yml'
   end
 
   database_name = ask("What's the prefix name for the database?")
@@ -35,40 +35,39 @@ say <<-eos
   zzz...
 eos
 
-run 'bundle install'
+run 'bundle install --no-deployment'
 
 say <<-eos
   ============================================================================
   Updating application.rb
   Creating app/sweepers directory.
-  Creating app/jobs directory.
+  Creating app/workers directory.
   Creating app/models/validators directory.
   Best practice: validators and cache sweepers should be within in its own directory.
 eos
 
 inside('app') do
   run('mkdir sweepers')
-  run('mkdir jobs')
+  run('mkdir workers')
   run('mkdir -p models/validators')
 end
 
 rails_config = <<-eos
-    #Rails generators
+    # Rails generators
     config.generators do |g|
       g.template_engine :haml
-      g.fixture_replacement :factory_girl, :dir => "spec/factories"
-      g.test_framework :rspec, :fixture => false
+      g.fixture_replacement :factory_girl, dir: "spec/factories"
+      g.test_framework :rspec, fixture: false
     end
 eos
 
-insert_into_file "config/application.rb", rails_config, :after => "class Application < Rails::Application\n"
+insert_into_file 'config/application.rb', rails_config, after: "class Application < Rails::Application\n"
 
-get 'https://raw.github.com/bridgeutopia/gitignore/master/Rails.gitignore', '.gitignore'
+get 'https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore', '.gitignore'
 
 say <<-eos
   ============================================================================
   There's a still lot to do here but it's best to install
   all of those stuff without a generator.
-  Consider reading about devise, cancan and autotest.
-  https://github.com/svoop/autotest-growl
+  Consider reading about devise, cancan and guard-rspec.
 eos
